@@ -2,6 +2,6 @@
 # Azure - usually when they have similar lifecycles 
 
 resource "azurerm_resource_group" "this" {
-  name = local.resource_group_name
+  name     = local.resource_group_name
   location = local.region
 }
