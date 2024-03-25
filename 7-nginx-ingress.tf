@@ -1,5 +1,5 @@
 data "azurerm_kubernetes_cluster" "this" {
-  name                = "${local.env}-${local.eks_name}"
+  name                = "${local.env}-${local.aks_name}"
   resource_group_name = local.resource_group_name
 
   # Comment this out if you get: Error: Kubernetes cluster unreachable 
