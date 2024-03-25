@@ -33,26 +33,26 @@ resource "azurerm_kubernetes_cluster" "this" {
 
   sku_tier = "Free"
   # Required for workload identity 
-  oidc_issuer_enabled = true
+  oidc_issuer_enabled       = true
   workload_identity_enabled = true
 
   network_profile {
     # Allows use of native network with "azure" 
     network_plugin = "azure"
     dns_service_ip = "10.0.64.10"
-    service_cidr = "10.0.64.0/19"
+    service_cidr   = "10.0.64.0/19"
   }
 
   default_node_pool {
-    name = "general"
-    vm_size = "Standard_D2_v2"
-    vnet_subnet_id = azurerm_subnet.subnet1.id
+    name                 = "general"
+    vm_size              = "Standard_D2_v2"
+    vnet_subnet_id       = azurerm_subnet.subnet1.id
     orchestrator_version = local.aks_version
-    type = "VirtualMachineScaleSets"
-    enable_auto_scaling = true
-    node_count = 1
-    min_count = 1
-    max_count = 2
+    type                 = "VirtualMachineScaleSets"
+    enable_auto_scaling  = true
+    node_count           = 1
+    min_count            = 1
+    max_count            = 2
 
     node_labels = {
       role = "general"
@@ -60,7 +60,7 @@ resource "azurerm_kubernetes_cluster" "this" {
   }
 
   identity {
-    type = "UserAssigned"
+    type         = "UserAssigned"
     identity_ids = [azurerm_user_assigned_identity.base.id]
   }
 
@@ -69,10 +69,10 @@ resource "azurerm_kubernetes_cluster" "this" {
   }
 
   lifecycle {
-    ignore_changes = [ default_node_pool[0].node_count ]
+    ignore_changes = [default_node_pool[0].node_count]
   }
 
-  depends_on = [ 
+  depends_on = [
     azurerm_role_assignment.base
-   ]
+  ]
 }
